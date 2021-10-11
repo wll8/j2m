@@ -40,7 +40,7 @@ function getMockTag({key, value}) {
 function matchList({ruleList, str}) {
   const res = ruleList.reduce((res, [re, weight = 1]) => {
     let fn = {
-      regexp: str => str.match(re),
+      regexp: str => String(str).match(re),
       function: re,
       boolean: () => re,
     }[isType(re)]

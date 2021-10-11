@@ -35,10 +35,7 @@ rule = {
     
     // value 的特征
     value: [
-      [str => { // 所有字符都是中文
-        return str.match(/[^\u4e00-\u9fa5]/) ? false : true
-      }],
-      [/^.{2,4}$/, 2], // 2-4 个字符
+      [/^[\u4e00-\u9fa5]{2,4}$/, 2], // 2-4 个中文汉字
     ],
   },
 }
@@ -48,81 +45,96 @@ rule = {
 
 如果有3+个数据源, 去掉最高最低取平均值.
 
+配置技巧:
+- 规则越具体, 则权重应该越高
+- 如果 key 有明显标志时, 请配置 key 的标志
+- 如果 value 的类型确认时, 请配置 type
+
 ## 参考
 - http://wll8.gitee.io/mockjs-examples/
 
 ## todo
 如何参与贡献?
-- 交流QQ `1806184632` / 微信 `mypastcn`
 - 克隆项目
 - 在 `rule.js` 中完善 mockjs 的占位符特征列表
-- 使用 `node index.js` 运行主程序
+- 使用 `node test\index.js` 运行程序
 
 占位符完成度情况
-- [x] basic.boolean
-- [x] basic.bool
-- [ ] basic.natural
-- [ ] basic.integer
-- [ ] basic.int
-- [ ] basic.float
-- [ ] basic.character
-- [ ] basic.char
-- [ ] basic.string
-- [ ] basic.str
-- [ ] basic.range
-- [ ] date.date
-  - [x] @date("yyyy-MM-dd")
-  - [ ] @date("yy-MM-dd")
-- [ ] date.time
-- [ ] date.datetime
-- [ ] date.now
-- [ ] image.image
-- [ ] image.img
-- [ ] image.dataImage
-- [x] color.color
-- [ ] color.hex
-- [ ] color.rgb
-- [ ] color.rgba
-- [ ] color.hsl
-- [ ] text.paragraph
-- [x] text.cparagraph
-- [ ] text.sentence
-- [ ] text.csentence
-- [ ] text.word
-- [ ] text.cword
-- [ ] text.title
-- [x] text.ctitle
-- [ ] name.first
-- [ ] name.last
-- [ ] name.name
-- [ ] name.cfirst
-- [ ] name.clast
-- [x] name.cname
-- [ ] web.url
-- [ ] web.protocol
-- [ ] web.domain
-- [ ] web.tld
-- [ ] web.email
-- [ ] web.ip
-- [ ] address.region
-- [ ] address.province
-- [ ] address.city
-- [ ] address.county
-- [ ] address.zip
-- [ ] helper.capitalize
-- [ ] helper.upper
-- [ ] helper.lower
-- [ ] helper.pick
-- [ ] helper.shuffle
-- [ ] helper.order
-- [ ] misc.d4
-- [ ] misc.d6
-- [ ] misc.d8
-- [ ] misc.d12
-- [ ] misc.d20
-- [ ] misc.d100
-- [ ] misc.guid
-- [ ] misc.uuid
-- [ ] misc.id
-- [ ] misc.increment
-- [ ] misc.inc
+- [ ] address
+  - [ ] address.region
+  - [ ] address.province
+  - [ ] address.city
+  - [ ] address.county
+  - [ ] address.zip
+- [ ] basic
+  - [x] basic.boolean
+  - [x] basic.bool
+  - [ ] basic.natural
+    - [x] @natural(18,99)
+  - [ ] basic.integer
+  - [ ] basic.int
+  - [ ] basic.float
+  - [ ] basic.character
+  - [ ] basic.char
+  - [ ] basic.string
+  - [ ] basic.str
+  - [ ] basic.range
+- [ ] color
+  - [x] color.color
+  - [ ] color.hex
+  - [ ] color.rgb
+  - [ ] color.rgba
+  - [ ] color.hsl
+- [ ] date
+  - [ ] date.date
+    - [x] @date("yyyy-MM-dd")
+  - [ ] date.time
+  - [ ] date.datetime
+    - [ ] @datetime("yyyy-MM-dd HH:mm:ss")
+  - [ ] date.now
+- [ ] helper
+  - [ ] helper.capitalize
+  - [ ] helper.upper
+  - [ ] helper.lower
+  - [ ] helper.pick
+  - [ ] helper.shuffle
+  - [ ] helper.order
+- [ ] image
+  - [ ] image.image
+  - [ ] image.img
+  - [ ] image.dataImage
+- [ ] misc
+  - [ ] misc.d4
+  - [ ] misc.d6
+  - [ ] misc.d8
+  - [ ] misc.d12
+  - [ ] misc.d20
+  - [ ] misc.d100
+  - [ ] misc.guid
+  - [ ] misc.uuid
+  - [x] misc.id
+  - [ ] misc.increment
+  - [ ] misc.inc
+- [ ] name
+  - [ ] name.first
+  - [ ] name.last
+  - [ ] name.name
+  - [ ] name.cfirst
+  - [ ] name.clast
+  - [x] name.cname
+- [ ] text
+  - [ ] text.paragraph
+  - [x] text.cparagraph
+  - [ ] text.sentence
+  - [ ] text.csentence
+  - [ ] text.word
+  - [ ] text.cword
+  - [ ] text.title
+  - [x] text.ctitle
+- [ ] web
+  - [ ] web.url
+  - [ ] web.protocol
+  - [ ] web.domain
+  - [ ] web.tld
+  - [ ] web.email
+  - [ ] web.ip
