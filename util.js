@@ -38,14 +38,22 @@ function getMockTag({key, value}) {
  * @param {*} param0 
  */
 function matchList({ruleList, str}) {
-  return ruleList.reduce((acc, [re, weight = 1]) => {
+  const res = ruleList.reduce((res, [re, weight = 1]) => {
     let fn = {
       regexp: str => str.match(re),
       function: re,
       boolean: () => re,
     }[isType(re)]
-    return acc + (fn(str) ? weight : 0)
-  }, 0)
+    const ok = fn(str) ? weight : 0
+    ok && res.accLength++
+    res.acc = res.acc + ok
+    return res
+  }, {
+    str,
+    acc: 0, // 总权重
+    accLength: 0, // 共匹配多少条规则
+  })
+  return res.acc / res.accLength || 0
 }
 
 
