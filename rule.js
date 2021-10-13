@@ -16,16 +16,25 @@ function getRuleList() {
         },
       },
       {
-        tag: [`basic.natural`],
-        tpl: `@natural(18,99)`,
+        tag: [`basic.integer`, `basic.int`],
+        tpl: `@integer(18,99)`,
         info: {
-          type: `number`,
+          type: [`integer`, `int`],
           key: [
             [/^age$/, 2],
           ],
           value: [
             [/^[1-9][0-9]$/, 2],
           ],
+        },
+      },
+      {
+        tag: [`basic.float`],
+        tpl: `@float()`,
+        info: {
+          type: `float`,
+          key: [],
+          value: [],
         },
       },
     ],
@@ -100,7 +109,8 @@ function getRuleList() {
         info: {
           type: `string`,
           key: [
-            [/name$/i],
+            [/^userName$/i, 2],
+            [/^fullName$/i, 2],
           ],
           value: [
             [/^[\u4e00-\u9fa5]{2,4}$/, 2],
@@ -162,10 +172,90 @@ function getRuleList() {
   }
   return [
     
-  ].concat(...Object.values(mockJsTpl))
+  ].concat(...Object.values(mockJsTpl)).map(item => {
+    item.info.type = typeof(item.info.type) === `string` 
+      ? [item.info.type] 
+      : item.info.type
+    const strTpl = typeof(item.tpl) === `string` ? String(item.tpl) : undefined
+    item.tpl = strTpl
+    ? function(){return strTpl}
+    : item.tpl
+    
+    return item
+  })
 }
 
+/**
+ * 生成方法的配置
+ */
+function defaultOption() {
+  const option = {
+    /**
+      指定 code 字段
+      
+      被指定的字段不会新的数据, 而是从已有数据中选择
+      
+      例如:
+      - 原始数据:
+      ``` js
+      {
+        like: [
+          {
+            name: `张三`,
+          },
+          {
+            name: `李四`,
+          },
+        ],
+      }
+      ```
+      - 指定前:
+      ``` js
+      {
+        like: [
+          {
+            name: `@cname`,
+          },
+        ],
+      }
+      ```
+      - 指定后: `{code: [`like.name`]}`
+      ``` js
+      {
+        like: [
+          {
+            name: `@pick('张三', '李四')`,
+          },
+        ],
+      }
+      ```
+    */
+    code: [],
+    
+    /**
+      是否处理数组中的所有项为单个模板
+      - 否
+      不进行类型统一推测
+      
+      - 是 - 默认
+      自动根据平均数、众数等规则获取最可能的特征生成单个模板
+    */
+    min: true,
+    
+    /**
+      配置 key 的规则
+    */
+    keyRule: {
+      /**
+        当 option.min 为 true 时, 随机生成 x-y 条数据
+      */
+      array: `3-7`,
+    },
+  }
+  return option
+}
 
 module.exports = {
   getRuleList,
+  defaultOption,
 }
