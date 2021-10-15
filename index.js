@@ -35,13 +35,15 @@ function j2m(obj, option) {
             : val
         } else {
           flat[path] = val
-          result[key] = util.getMockTag({
+          const ruleList = util.getMockTag({
             rootData,
             key,
             value: val,
             path,
             option,
-          })[0].rule.tpl || val
+          })
+          path === option.log.path && console.log([...ruleList].reverse())
+          result[key] = ruleList[0].rule.tpl || val
         }
       })
     }

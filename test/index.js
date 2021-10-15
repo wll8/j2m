@@ -56,6 +56,9 @@ const obj = {
   ],
 }
 const option = {
+  log: {
+    path: `region`,
+  },
   rule: [
   ],
   code: [

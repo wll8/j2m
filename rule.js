@@ -204,7 +204,7 @@ function getRuleList(userRule = []) {
       },
     ],
   }
-  return userRule.concat(...Object.values(mockJsTpl)).map(item => {
+  const list = userRule.concat(...Object.values(mockJsTpl)).map(item => {
     item.info.type = typeof(item.info.type) === `string` 
       ? [item.info.type] 
       : (item.info.type || ``)
@@ -224,7 +224,8 @@ function getRuleList(userRule = []) {
     : item.tpl
     
     return item
-  }).reverse()
+  })
+  return [...list].reverse()
 }
 
 /**
@@ -232,6 +233,14 @@ function getRuleList(userRule = []) {
  */
 function defaultOption() {
   const option = {
+    /**
+      log 选项
+    */
+    log: {
+      // 打印指定 path 的 rule 匹配情况
+      path: undefined,
+    },
+    
     /**
       指定 code 字段
       
