@@ -207,7 +207,17 @@ function getRuleList(userRule = []) {
   return userRule.concat(...Object.values(mockJsTpl)).map(item => {
     item.info.type = typeof(item.info.type) === `string` 
       ? [item.info.type] 
-      : item.info.type
+      : (item.info.type || ``)
+    item.info.key = [
+      // 自动把 tag 中的词作为权重为 2 的全匹配正则
+      ...new Set(
+        item.tag
+          .map(item => item.split(`.`))
+          .flat()
+          .map(str => [new RegExp(`^${str}$`), 2])
+      ),
+      ...item.info.key,
+    ]
     const strTpl = typeof(item.tpl) === `string` ? String(item.tpl) : undefined
     item.tpl = strTpl
     ? function(){return strTpl}
