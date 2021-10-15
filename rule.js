@@ -214,7 +214,7 @@ function getRuleList(userRule = []) {
     : item.tpl
     
     return item
-  })
+  }).reverse()
 }
 
 /**
