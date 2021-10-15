@@ -1,3 +1,4 @@
+const deepmerge = require(`deepmerge`)
 const util = require(`../util.js`)
 const {defaultOption} = require(`../rule.js`)
 const mockjs = require(`mockjs`)
@@ -55,14 +56,17 @@ const obj = {
 
 const flat = {}
 const rootData = obj
-const option = {
-  ...defaultOption(),
+const option = deepmerge(defaultOption(), {
   code: [
     `children.like.fruits`,
     `children.sex`,
     `like.type`,
   ],
-}
+  keyRule: {
+    array: `1-2`,
+    object: ``,
+  },
+})
 
 function toTpl({value, prevPath}) { // 展开对象
   const valueType = util.isType(value)
@@ -112,7 +116,7 @@ function handleTpl({value}) {
         result[key] = val
       } else if(util.isType(val, `array`)) {
         if(option.min) {
-          const newKey = isNaN(Number(key)) ? `${key}|3-7` : key
+          const newKey = isNaN(Number(key)) ? `${key}|${option.keyRule.array}` : key
           result[newKey] = handleTpl({value: [
             val[
               // 获取字符数最多的那条数字作为模板
@@ -129,6 +133,8 @@ function handleTpl({value}) {
         } else {
           result[key] = handleTpl({value: val})
         }
+      } else if(util.isType(val, `object`) && (Boolean(key.match(/^\d+$/)) === false)) {
+        result[option.keyRule.object ? `${key}|${option.keyRule.object}` : key] = handleTpl({value: val})
       } else {
         result[key] = handleTpl({value: val})
       }

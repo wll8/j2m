@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "mockjs": "^1.1.0"
+  },
+  "dependencies": {
+    "deepmerge": "^4.2.2"
   }
 }

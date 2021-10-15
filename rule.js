@@ -250,6 +250,11 @@ function defaultOption() {
         当 option.min 为 true 时, 随机生成 x-y 条数据
       */
       array: `3-7`,
+      
+      /**
+        设置对象的生成规则
+      */
+      object: undefined,
     },
   }
   return option
