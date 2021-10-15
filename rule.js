@@ -1,10 +1,44 @@
 /**
  * 获取规则列表
  */
-function getRuleList() {
+function getRuleList(userRule = []) {
   // 根据 mockjs 的对象编写的规则
   const mockJsTpl = {
-    address: [],
+    address: [
+      {
+        tag: [`address.province`],
+        tpl: `@province()`,
+        info: {
+          type: `string`,
+          key: [],
+          value: [
+            [/^[\u4e00-\u9fa5]{2}省$/, 2]
+          ],
+        },
+      },
+      {
+        tag: [`address.city`],
+        tpl: `@city()`,
+        info: {
+          type: `string`,
+          key: [],
+          value: [
+            [/^[\u4e00-\u9fa5]{2}市$/, 2]
+          ],
+        },
+      },
+      {
+        tag: [`address.county`],
+        tpl: `@county()`,
+        info: {
+          type: `string`,
+          key: [],
+          value: [
+            [/^[\u4e00-\u9fa5]{2}县$/, 2]
+          ],
+        },
+      },
+    ],
     basic: [
       {
         tag: [`basic.boolean`, `basic.bool`],
@@ -170,9 +204,7 @@ function getRuleList() {
       },
     ],
   }
-  return [
-    
-  ].concat(...Object.values(mockJsTpl)).map(item => {
+  return userRule.concat(...Object.values(mockJsTpl)).map(item => {
     item.info.type = typeof(item.info.type) === `string` 
       ? [item.info.type] 
       : item.info.type

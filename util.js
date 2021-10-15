@@ -83,7 +83,7 @@ function getMockTag({
     ? (Number.isInteger(newValue) ? `integer` : `float`)
     : type
     
-  const ruleList = getRuleList()
+  const ruleList = getRuleList(option.rule)
   const ruleListRes = ruleList.map((rule, index) => {
     const typeFeat = Number(rule.info.type.includes(type))
     const keyFeat = matchList({ruleList: rule.info.key, str: key})
