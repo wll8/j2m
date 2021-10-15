@@ -17,23 +17,23 @@ value = `张三`
 
 ``` js
 rule = {
-  // mockjs 方法位置, 或自定义标签
+  /** @type {string[]} mockjs 方法位置, 或自定义标签 */
   tag: [`name.cname`],
   
-  // mockjs 占用符
+  /** @type {string} mockjs 占用符 */
   tpl: `@cname`,
   
-  // 哪些信息项可以匹配该占位符
+  /** @type {object} 哪些信息项可以匹配该占位符 */
   info: {
-    // value 的值类型 string
+    /** @type {string|string[]} value 的值类型 string, 类型 */
     type: `string`,
     
-    // key 的特征, tag 中的每个词会自动作为 key 的匹配项
+    /** @type {array[]} key 的特征, tag 中的每个词会自动作为 key 的匹配项 */
     key: [
       [/^name$/i], // 以 name 为后缀
     ],
     
-    // value 的特征
+    /** @type {array[]} value 的特征 */
     value: [
       [/^[\u4e00-\u9fa5]{2,4}$/, 2], // 2-4 个中文汉字
     ],
@@ -53,67 +53,70 @@ rule = {
 - 当计算出来的权重相同时, 后面的规则会被优先获取
 
 ## 参考
-- http://wll8.gitee.io/mockjs-examples/
+- [在线文档](http://wll8.gitee.io/mockjs-examples/)
+- [random 方法](node_modules/mockjs/src/mock/random/index.js)
 
 ## todo
+- [ ] 对于 @float @integer @natural 才支持, 否则可能导致参数错误
+
 如何参与贡献?
 - 克隆项目
 - 在 `rule.js` 中完善 mockjs 的占位符特征列表
 - 使用 `node test\index.js` 运行程序
 
 占位符完成度情况
-- [ ] address
-  - [ ] address.region
-  - [ ] address.province
-  - [ ] address.city
-  - [ ] address.county
-  - [ ] address.zip
-- [ ] basic
+- [x] address
+  - [x] address.region
+  - [x] address.province
+  - [x] address.city
+  - [x] address.county
+  - [x] address.zip
+- [x] basic
   - [x] basic.boolean
   - [x] basic.bool
-  - [ ] basic.natural
-    - [x] @natural(18,99)
-  - [ ] basic.integer
-  - [ ] basic.int
-  - [ ] basic.float
-  - [ ] basic.character
-  - [ ] basic.char
-  - [ ] basic.string
-  - [ ] basic.str
-  - [ ] basic.range
-- [ ] color
+  - [x] basic.natural
+  - [x] basic.integer
+  - [x] basic.int
+  - [x] basic.float
+  - [x] basic.character
+  - [x] basic.char
+  - [x] basic.string
+  - [x] basic.str
+  - [x] basic.range - 忽略
+- [x] color
   - [x] color.color
-  - [ ] color.hex
-  - [ ] color.rgb
-  - [ ] color.rgba
-  - [ ] color.hsl
+  - [x] color.hex
+  - [x] color.rgb
+  - [x] color.rgba
+  - [x] color.hsl
 - [ ] date
-  - [ ] date.date
+  - [x] date.date
     - [x] @date("yyyy-MM-dd")
-  - [ ] date.time
-  - [ ] date.datetime
-    - [ ] @datetime("yyyy-MM-dd HH:mm:ss")
-  - [ ] date.now
-- [ ] helper
-  - [ ] helper.capitalize
-  - [ ] helper.upper
-  - [ ] helper.lower
-  - [ ] helper.pick
-  - [ ] helper.shuffle
-  - [ ] helper.order
-- [ ] image
-  - [ ] image.image
-  - [ ] image.img
-  - [ ] image.dataImage
+  - [x] date.time
+    - [x] @time("HH:mm:ss")
+  - [x] date.datetime
+    - [x] @datetime("yyyy-MM-dd HH:mm:ss")
+  - [x] date.now - 忽略
+- [x] helper - 忽略
+  - [x] helper.capitalize
+  - [x] helper.upper
+  - [x] helper.lower
+  - [x] helper.pick
+  - [x] helper.shuffle
+  - [x] helper.order
+- [x] image
+  - [x] image.image
+  - [x] image.img
+  - [x] image.dataImage
 - [ ] misc
-  - [ ] misc.d4
-  - [ ] misc.d6
-  - [ ] misc.d8
-  - [ ] misc.d12
-  - [ ] misc.d20
-  - [ ] misc.d100
-  - [ ] misc.guid
-  - [ ] misc.uuid
+  - [x] misc.d4 - 忽略
+  - [x] misc.d6 - 忽略
+  - [x] misc.d8 - 忽略
+  - [x] misc.d12 - 忽略
+  - [x] misc.d20 - 忽略
+  - [x] misc.d100 - 忽略
+  - [x] misc.guid
+  - [x] misc.uuid
   - [x] misc.id
   - [ ] misc.increment
   - [ ] misc.inc

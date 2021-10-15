@@ -6,6 +6,17 @@ function getRuleList(userRule = []) {
   const mockJsTpl = {
     address: [
       {
+        tag: [`address.region`],
+        tpl: `@region()`,
+        info: {
+          type: `string`,
+          key: [],
+          value: [
+            [/^(东北|华北|华东|华中|华南|西南|西北)$/, 3]
+          ],
+        },
+      },
+      {
         tag: [`address.province`],
         tpl: `@province()`,
         info: {
@@ -38,6 +49,17 @@ function getRuleList(userRule = []) {
           ],
         },
       },
+      {
+        tag: [`address.zip`],
+        tpl: `@zip()`,
+        info: {
+          type: [`string`, `integer`],
+          key: [],
+          value: [
+            [/^[1-9][0-9]{5}$/, 3]
+          ],
+        },
+      },
     ],
     basic: [
       {
@@ -53,12 +75,35 @@ function getRuleList(userRule = []) {
         tag: [`basic.integer`, `basic.int`],
         tpl: `@integer(18,99)`,
         info: {
-          type: [`integer`, `int`],
+          type: [`integer`],
           key: [
             [/^age$/, 2],
           ],
           value: [
             [/^[1-9][0-9]$/, 2],
+          ],
+        },
+      },
+      {
+        tag: [`basic.integer`, `basic.int`],
+        tpl: `@integer()`,
+        info: {
+          type: [`integer`],
+          key: [
+          ],
+          value: [
+          ],
+        },
+      },
+      {
+        tag: [`basic.natural`],
+        tpl: `@natural()`,
+        info: {
+          type: [`integer`, `float`],
+          key: [
+          ],
+          value: [
+            [/^-/, 2],
           ],
         },
       },
@@ -69,6 +114,27 @@ function getRuleList(userRule = []) {
           type: `float`,
           key: [],
           value: [],
+        },
+      },
+      {
+        tag: [`basic.character`, `basic.char`],
+        tpl: `@character()`,
+        info: {
+          type: `string`,
+          key: [],
+          value: [
+            [/^\w$/, 2]
+          ],
+        },
+      },
+      {
+        tag: [`basic.string`, `basic.str`],
+        tpl: `@string()`,
+        info: {
+          type: `string`,
+          key: [],
+          value: [
+          ],
         },
       },
     ],
@@ -84,6 +150,39 @@ function getRuleList(userRule = []) {
           ],
         },
       },
+      {
+        tag: [`color.rgb`],
+        tpl: `@rgb()`,
+        info: {
+          type: `string`,
+          key: [],
+          value: [
+            [/^rgb\(\d{1,3},.*\)$/, 3]
+          ],
+        },
+      },
+      {
+        tag: [`color.rgba`],
+        tpl: `@rgba()`,
+        info: {
+          type: `string`,
+          key: [],
+          value: [
+            [/^rgba\(\d{1,3},.*\)$/, 3]
+          ],
+        },
+      },
+      {
+        tag: [`color.hsl`],
+        tpl: `@hsl()`,
+        info: {
+          type: `string`,
+          key: [],
+          value: [
+            [/^hsl\(\d{1,3},.*\)$/, 3]
+          ],
+        },
+      },
     ],
     date: [
       {
@@ -93,7 +192,7 @@ function getRuleList(userRule = []) {
           type: `string`,
           key: [],
           value: [
-            [/^(?:[1-9]\d)\d\d-(?:(?:0[1-9])|(?:1[0-2]))-(?:(?:[0-2][1-9])|(?:[1-3][0-1]))$/, 3]
+            [/^(?:[1-9]\d)\d\d.(?:(?:0[1-9])|(?:1[0-2])).(?:(?:[0-2][1-9])|(?:[1-3][0-1]))\D{0,1}$/, 3]
           ],
         },
       },
@@ -104,7 +203,7 @@ function getRuleList(userRule = []) {
           type: `string`,
           key: [],
           value: [
-            [/^(?:[1-9]\d)\d\d-(?:(?:0[1-9])|(?:1[0-2]))-(?:(?:[0-2][1-9])|(?:[1-3][0-1])) (?:(?:[0-2][0-3])|(?:[0-1]\d)):[0-5]\d:[0-5]\d$/, 3]
+            [/^(?:[1-9]\d)\d\d.(?:(?:0[1-9])|(?:1[0-2])).(?:(?:[0-2][1-9])|(?:[1-3][0-1]))\D{0,1} (?:(?:[0-2][0-3])|(?:[0-1]\d)).[0-5]\d.[0-5]\d\D{0,1}$/, 3]
           ],
         },
       },
@@ -115,14 +214,51 @@ function getRuleList(userRule = []) {
           type: `string`,
           key: [],
           value: [
-            [/^(?:(?:[0-2][0-3])|(?:[0-1]\d)):[0-5]\d:[0-5]\d$/, 3]
+            [/^(?:(?:[0-2][0-3])|(?:[0-1]\d)).[0-5]\d.[0-5]\d$/, 3]
           ],
         },
       },
     ],
     helper: [],
-    image: [],
+    image: [
+      {
+        tag: [`image.image`, `image.img`],
+        tpl: `@image()`,
+        info: {
+          type: `string`,
+          key: [
+          ],
+          value: [
+            [/\/(\w+\.(?:png|jpg|gif|ico|bmp))$/, 3],
+          ],
+        },
+      },
+      {
+        tag: [`image.dataImage`],
+        tpl: `@image()`,
+        info: {
+          type: `string`,
+          key: [
+          ],
+          value: [
+            [/^data:image\//, 3],
+          ],
+        },
+      },
+    ],
     misc: [
+      {
+        tag: [`misc.guid`, `misc.uuid`],
+        tpl: `@guid()`,
+        info: {
+          type: `string`,
+          key: [
+          ],
+          value: [
+            [/^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$/, 3],
+          ],
+        },
+      },
       {
         tag: [`misc.id`],
         tpl: `@id`,
@@ -131,7 +267,7 @@ function getRuleList(userRule = []) {
           key: [
           ],
           value: [
-            [/^([0-9]){18}(X)?$/, 2],
+            [/^([0-9]){18}(X)?$/, 3],
           ],
         },
       },

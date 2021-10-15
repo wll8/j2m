@@ -2,6 +2,20 @@ const mockjs = require(`mockjs`)
 const j2m = require(`../index.js`)
 
 const obj = {
+  region: `东北`,
+  zip: 551612,
+  natural: 5516127,
+  character: `a`,
+  string: `a`,
+  rgb: `rgb(172, 121, 242)`,
+  rgba: `rgba(242, 121, 140, 0.13)`,
+  hsl: `hsl(172, 121, 242)`,
+  date: `2021年12月24日`,
+  datetime: `2021年12月24 12点24分29`,
+  time: `12点24分29秒`,
+  image: `http://baidu.com/favicon.ico`,
+  dataImage: `data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=`,
+  guid: `0F23eB3C-D5CA-93AB-Fe5b-243d0dbDAdfc`,
   userName: `张三`,
   province: `广东省`,
   city: `东菀市`,
@@ -73,8 +87,8 @@ const option = {
 }
 
 console.log(`res`, 
-  mockjs.mock(
-    j2m(obj, option)
-  ),
+  // mockjs.mock(
+  //   j2m(obj, option)
+  // ),
   j2m(obj, option),
 )

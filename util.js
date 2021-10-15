@@ -101,6 +101,7 @@ function getMockTag({
     })
     
     // 针对 number 类型以及字符串形式的 tpl 进行优化, 设置范围
+    // todo 对于 @float @integer @natural 才支持, 否则可能导致参数错误
     if(option.min && isType(rule.tpl, `string`) && (cur || prev) && isType(newValue, `number`)) {
       const min = cur.min || prev.min
       const max = cur.max || prev.max
